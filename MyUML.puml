@@ -1,0 +1,98 @@
+@startuml
+class MyClasses.Banned_creators {
+- {static} Banned_creators instance
+- {static} List<Unit> banned_creators
++ {static} Banned_creators getInstance()
++ boolean trigger(Unit,int)
++ void unban(Unit)
++ void print_banned()
++ void subscribe(Unit,Users)
++ void like_dislike(Observable,Object,int)
++ void un_sub(Observable,Object,int)
+}
+
+
+abstract class MyClasses.Users {
++ void subscribe(Unit)
++ Users createNewInstance()
++ void update(Observable,Object)
++ boolean view(int)
++ {abstract}void like_dislike(Observable,Object,int)
++ void un_sub(Observable,Object,int)
++ void share(Observable,Object,int)
+}
+
+class MyClasses.LoyalUser {
++ void like_dislike(Observable,Object,int)
++ void un_sub(Observable,Object,int)
+}
+
+class MyClasses.Controversial_Commentary {
+- int index
+- String previous_upload
+- Semaphore semaphore
+- boolean on_break
+- int strikes
+- boolean banned
++ void performAction()
++ void submitStatistics()
++ void run()
+}
+
+
+class MyClasses.CasualUser {
++ boolean view(int)
++ void like_dislike(Observable,Object,int)
+}
+
+class MyClasses.Trending {
+- {static} Trending instance
+- ArrayList<Unit> trending
++ {static} Trending getInstance()
++ void add_trending(Unit)
++ void print_trending()
+}
+
+
+class MyClasses.Gamer {
+- boolean on_break
++ void performAction()
++ void submitStatistics()
++ void run()
+}
+
+
+class MyClasses.Reaction_channel {
+- Semaphore semaphore
+- String react_name
+- boolean available_content
++ void performAction()
++ void submitStatistics()
+}
+
+
+class MyClasses.Vlogger {
+- boolean traveled
++ void performAction()
++ void submitStatistics()
++ void run()
+}
+
+
+class MyClasses.HaterUser {
++ void like_dislike(Observable,Object,int)
++ void un_sub(Observable,Object,int)
+}
+
+
+
+MyClasses.Users <|-- MyClasses.Banned_creators
+java.util.Observer <|.. MyClasses.Users
+MyClasses.Users <|-- MyClasses.LoyalUser
+Skeleton.Unit <|-- MyClasses.Controversial_Commentary
+MyClasses.Users <|-- MyClasses.CasualUser
+Skeleton.Unit <|-- MyClasses.Gamer
+Skeleton.Unit <|-- MyClasses.Reaction_channel
+Skeleton.Unit <|-- MyClasses.Vlogger
+MyClasses.Users <|-- MyClasses.HaterUser
+@enduml
